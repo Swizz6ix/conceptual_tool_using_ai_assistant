@@ -1,5 +1,7 @@
 import json
 
+from conceptual_tool_using_ai_assistant.utilities.extract_location import extract_location_from_prompt
+
 def mock_llm_json_response(prompt: str) -> str:
     """
     Simulates a response from a language model based on the provided prompt.
@@ -12,7 +14,7 @@ def mock_llm_json_response(prompt: str) -> str:
     """
     # Placeholder implementation - replace with actual LLM integration
     if any(keyword in prompt.lower() for keyword in ["weather", "temperature", "forecast"]):
-        city = prompt.split("in")[-1].strip()  # Extract city from prompt
+        city = extract_location_from_prompt(prompt)  # Extract city from prompt
         
         return json.dumps({
             "tool_name": "get_weather",
