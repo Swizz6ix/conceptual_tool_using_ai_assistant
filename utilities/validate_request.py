@@ -1,4 +1,4 @@
-from conceptual_tool_using_ai_assistant.tools_helpers.valid_tools import TOOLS
+from conceptual_tool_using_ai_assistant.guardrails.valid_tools import VALID_TOOLS
 
 
 def validate_request(request: dict) -> bool:
@@ -56,7 +56,7 @@ def validate_request(request: dict) -> bool:
     if not all(k.strip() for k in request["args"].keys()):
         raise ValueError("All keys in the 'args' dictionary must be non-empty strings.")
     
-    if request["tool_name"] not in TOOLS:
+    if request["tool_name"] not in VALID_TOOLS:
         raise ValueError(f"Tool '{request['tool_name']}' is not recognized or supported.")
 
     return True
