@@ -5,7 +5,7 @@ from llms.mock_llm import mock_llm_json_response
 
 
 MAX_ITERATIONS = 5  # Limit the number of iterations to prevent infinite loops
-STOP_WORDS = ["exit", "quit", "stop", "bye", "goodbye", "break"]  # Words to stop the applicatio
+STOP_WORDS = ["exit", "quit", "stop", "bye", "goodbye", "break"]  # Words to stop the application
 
 def app():
     """

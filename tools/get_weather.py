@@ -1,3 +1,7 @@
+from guardrails.cached import cached
+
+
+@cached(maxsize=128)
 def get_weather(location: str, unit: str = "Celsius") -> dict:
     """
     Fetches the current weather for a given location using an AI assistant.

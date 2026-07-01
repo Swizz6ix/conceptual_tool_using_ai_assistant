@@ -1,3 +1,7 @@
+from guardrails.cached import cached
+
+
+@cached(maxsize=128)
 def text_summarizer(text, max_length=100):
     """
     Summarizes the input text to a specified maximum length.

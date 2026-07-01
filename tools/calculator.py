@@ -1,3 +1,7 @@
+from guardrails.cached import cached
+
+
+@cached(maxsize=128)
 def calculator(expression):
     """
     Evaluates a mathematical expression and returns the result.
