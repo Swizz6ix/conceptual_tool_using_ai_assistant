@@ -1,4 +1,4 @@
-from tools_helpers.valid_tools import valid_tools
+from conceptual_tool_using_ai_assistant.guardrails.valid_tools import VALID_TOOLS
 
 
 def tool_executor(tool_name: str, *args, **kwargs):
@@ -12,8 +12,9 @@ def tool_executor(tool_name: str, *args, **kwargs):
     Returns:
         The result of the tool execution.
     """
-    if tool_name not in valid_tools:
+    if tool_name not in VALID_TOOLS:
         raise ValueError(f"Tool '{tool_name}' is not recognized.")
 
-    tool = valid_tools[tool_name]
+    tool = VALID_TOOLS[tool_name]['function']
+
     return tool(*args, **kwargs)
