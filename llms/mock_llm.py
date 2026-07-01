@@ -68,35 +68,36 @@ def mock_llm_json_response(prompt: str) -> str:
         })
     
 
-def mock_llm_tool_response(tool_name: str, result: str) -> str: 
+def mock_llm_tool_response(tool_name: str, result: str, user_name: str) -> str: 
     """
     Simulates a response from a language model after executing a tool.
 
     Args:
         tool_name (str): The name of the tool that was executed.
         result (str): The result returned by the executed tool.
+        user_name (str): The name of the user.
 
     Returns:
         str: The simulated response from the language model.
     """
     responses = {
         "calculator":
-            lambda r: f"The result of your calculation is: {r}.",
+            lambda r: f"{user_name}, the result of your calculation is: {r}.",
 
         "web_search": 
             lambda r: (
-                f"Here are the search results for your query:\n\n"
+                f"{user_name}, here are the search results for your query:\n\n"
                 + "\n".join([f"- {item}" for item in r]),
             ),
 
         "text_summarizer": 
             lambda r: (
-                f"Here is the summary of the text:\n\n{r}",
+                f"{user_name}, here is the summary of the text:\n\n{r}",
             ),
             
         "get_weather": 
             lambda r: (
-                f"Here is the weather information in {r['location']}:\n\n"
+                f"{user_name}, here is the weather information in {r['location']}:\n\n"
                 f"{r['temperature']} with {r['conditions']} conditions." 
                 f"The humidity is {r['humidity']}% and the wind speed is {r['wind_speed']} km/h.",
             )
@@ -104,6 +105,6 @@ def mock_llm_tool_response(tool_name: str, result: str) -> str:
 
     formatter = responses.get(
         tool_name, 
-        lambda r: f"Tool '{tool_name}' executed successfully with result: {r}."
+        lambda r: f"Dear {user_name}, Tool '{tool_name}' executed successfully with result:\n{r}."
     )
     return f"LLM Response: {formatter(result)}"
