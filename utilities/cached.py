@@ -1,3 +1,6 @@
+from functools import wraps
+
+
 def cached(maxsize: int = 128):
     """
     Decorator to cache the results of a function call.
@@ -13,6 +16,7 @@ def cached(maxsize: int = 128):
     def decorator(func):
         cached_func = lru_cache(maxsize=maxsize)(func)
 
+        @wraps(func)
         def wrapper(*args, **kwargs):
             return cached_func(*args, **kwargs)
 
