@@ -1,4 +1,4 @@
-from conceptual_tool_using_ai_assistant.guardrails.valid_tools import VALID_TOOLS
+from guardrails.valid_tools import VALID_TOOLS
 
 
 def tool_executor(tool_name: str, *args, **kwargs):
