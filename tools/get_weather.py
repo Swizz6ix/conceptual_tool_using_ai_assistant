@@ -1,9 +1,10 @@
-def get_weather(location):
+def get_weather(location: str, unit: str = "Celsius") -> dict:
     """
     Fetches the current weather for a given location using an AI assistant.
 
     Args:
         location (str): The name of the location (city, country, etc.) to get the weather for.
+        unit (str): The unit for temperature measurement ("Celsius" or "Fahrenheit").
 
     Returns:
         dict: A dictionary containing weather information such as temperature, humidity, and conditions.
@@ -15,7 +16,7 @@ def get_weather(location):
     # Example response (mock data)
     weather_data = {
         "location": location,
-        "temperature": "22°C",
+        "temperature": "22 °C" if unit == "Celsius" else "72 °F",
         "humidity": "60%",
         "conditions": "Partly Cloudy",
         "wind_speed": "15 km/h"
