@@ -17,7 +17,8 @@ def get_weather(location):
         "location": location,
         "temperature": "22°C",
         "humidity": "60%",
-        "conditions": "Partly Cloudy"
+        "conditions": "Partly Cloudy",
+        "wind_speed": "15 km/h"
     }
     
     return weather_data
