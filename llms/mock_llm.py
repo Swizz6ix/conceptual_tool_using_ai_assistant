@@ -1,6 +1,10 @@
 import json
 
-from conceptual_tool_using_ai_assistant.utilities.extract_location import extract_location_from_prompt
+from utilities.extract_text import extract_text_from_prompt
+from utilities.extract_query import extract_query_from_prompt
+from utilities.extract_expression import extract_expression_from_prompt
+from utilities.extract_location import extract_location_from_prompt
+from utilities.extract_expression import math_confidence_check
 
 def mock_llm_json_response(prompt: str) -> str:
     """
@@ -12,9 +16,10 @@ def mock_llm_json_response(prompt: str) -> str:
     Returns:
         str: The simulated response from the language model.
     """
-    # Placeholder implementation - replace with actual LLM integration
-    if any(keyword in prompt.lower() for keyword in ["weather", "temperature", "forecast"]):
-        city = extract_location_from_prompt(prompt)  # Extract city from prompt
+
+    prompt_lower = prompt.lower()
+    if any(keyword in prompt_lower for keyword in ["weather", "temperature", "forecast"]):
+        city = extract_location_from_prompt(prompt_lower)  # Extract city from prompt
         
         return json.dumps({
             "tool_name": "get_weather",
@@ -24,9 +29,9 @@ def mock_llm_json_response(prompt: str) -> str:
             }
         })
     
-    elif any(keyword in prompt.lower() for keyword in ["calculate", "math", "compute"]):
-        expression = prompt.split(maxsplit=2)[-1].strip()  # Extract expression from prompt
-        
+    elif math_confidence_check(prompt_lower) >= 3:  # Check if the prompt is likely a math expression
+        expression = extract_expression_from_prompt(prompt_lower)  # Extract expression from prompt
+
         return json.dumps({
             "tool_name": "calculator",
             "args": {
@@ -34,9 +39,10 @@ def mock_llm_json_response(prompt: str) -> str:
             }
         })
     
-    elif any(keyword in prompt.lower() for keyword in ["search", "find", "lookup"]):
-        query = prompt.split(maxsplit=2)[-1].strip()  # Extract search query from prompt
-        
+    elif any(keyword in prompt_lower for keyword in ["search", "find", "lookup"]):
+        print(f"\n[LLM Prompt===>]: {prompt_lower}")
+        query = extract_query_from_prompt(prompt_lower)  # Extract search query from prompt
+
         return json.dumps({
             "tool_name": "web_search",
             "args": {
@@ -44,9 +50,9 @@ def mock_llm_json_response(prompt: str) -> str:
             }
         })
     
-    elif any(keyword in prompt.lower() for keyword in ["summarize", "summary", "condense"]):
-        text = prompt.split(maxsplit=1)[-1].strip()  # Extract text to summarize from prompt
-        
+    elif any(keyword in prompt_lower for keyword in ["summarize", "summary", "condense"]):
+        text = extract_text_from_prompt(prompt_lower)  # Extract text to summarize from prompt
+
         return json.dumps({
             "tool_name": "text_summarizer",
             "args": {
@@ -90,8 +96,8 @@ def mock_llm_tool_response(tool_name: str, result: str) -> str:
             
         "get_weather": 
             lambda r: (
-                f"Here is the weather information for your location:\n\n"
-                f"{r['temperature']} with {r['condition']} conditions." 
+                f"Here is the weather information in {r['location']}:\n\n"
+                f"{r['temperature']} with {r['conditions']} conditions." 
                 f"The humidity is {r['humidity']}% and the wind speed is {r['wind_speed']} km/h.",
             )
     }
