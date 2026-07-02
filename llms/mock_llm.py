@@ -59,6 +59,15 @@ def mock_llm_json_response(prompt: str) -> str:
                 "text": text
             }
         })
+    
+    elif any(keyword in prompt_lower for keyword in ["show", "dlq", "failed", "request", "dead"]):
+        return json.dumps({
+            "tool_name": "show_dlq",
+            "args": {
+                "query": prompt_lower
+            }
+        })
+
     else:
         return json.dumps({
             "tool_name": "unknown",

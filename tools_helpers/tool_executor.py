@@ -3,8 +3,7 @@ from guardrails.retries import retries
 from guardrails.valid_tools import VALID_TOOLS
 
 
-@timeout(5)  # Set a timeout of 5 seconds for tool execution
-@retries(max_attempts=3, delay=5)  # Retry up to 3 times with a 5-second delay between attempts
+@timeout(10)  # Set a timeout of 5 seconds for tool execution
 def tool_executor(tool_name: str, *args, **kwargs):
     """
     Executes the specified tool with the provided arguments.

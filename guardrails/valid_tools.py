@@ -1,3 +1,4 @@
+from guardrails.retries import show_dead_letter_queue
 from tools.text_summarizer import text_summarizer
 from tools.get_weather import get_weather
 from tools.web_search import web_search
@@ -39,5 +40,14 @@ VALID_TOOLS = {
         "input_format": "text",
         "required_args": ["text"],
         "return_format": str,
+    },
+
+    "show_dlq": {
+        "name": "Dead Letter Queue",
+        "description": "Holds failed request",
+        "function": show_dead_letter_queue,
+        "input_format": "query",
+        "required_args": None,
+        "return_format": dict
     }
 }

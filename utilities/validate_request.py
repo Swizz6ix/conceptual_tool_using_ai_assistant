@@ -17,6 +17,7 @@ def validate_request(request: dict) -> bool:
         "web_search": ["query"],
         "get_weather": ["location"],
         "text_summarizer": ["text"],
+        "show_dlq": ["query"]
     }
 
     # Example validation logic - replace with actual validation rules
