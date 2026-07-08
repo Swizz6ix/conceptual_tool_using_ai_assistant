@@ -1,9 +1,11 @@
-from guardrails.timeout import timeout
-from guardrails.retries import retries
-from guardrails.valid_tools import VALID_TOOLS
+from guardrails import (
+    timeout, retries, cached, VALID_TOOLS
+)
 
 
-@timeout(10)  # Set a timeout of 5 seconds for tool execution
+@cached(maxsize=128)
+@retries(max_attempts=5, max_delay=15.0)  # Retry up to 3 times with a 5-second delay between attempts
+@timeout(60) # Set a timeout of 5 seconds for tool execution
 def tool_executor(tool_name: str, *args, **kwargs):
     """
     Executes the specified tool with the provided arguments.

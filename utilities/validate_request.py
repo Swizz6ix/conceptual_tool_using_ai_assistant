@@ -1,4 +1,4 @@
-from guardrails.valid_tools import VALID_TOOLS
+from guardrails import VALID_TOOLS
 
 
 def validate_request(request: dict) -> bool:

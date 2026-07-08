@@ -1,8 +1,8 @@
 import json
 
-from utilities.validate_request import validate_request
-from tools_helpers.tool_executor import tool_executor
-from llms.mock_llm import mock_llm_tool_response
+from utilities import validate_request
+from tools_helpers import tool_executor
+from agent.llms import mock_llm_tool_response
 
 
 def tool_router(query: dict, user_name: str) -> str:

@@ -73,13 +73,22 @@ def show_dead_letter_queue(query: str = ''):
     """
     if not DEAD_LETTER_QUEUE:
         print("Dead Letter Queue is empty")
-        return
+        return []
     
     print(f"You askd for {query}")
     print("\n===== DEAD LETTER QUEUE ======")
 
+    failed_request = []
+
     for index, item in enumerate(DEAD_LETTER_QUEUE, start=1):
         print(f"\nRequest {index}")
 
-        for key, value in item.item():
+        request_obj = {"request": index}
+
+        for key, value in item.items():
             print(f"{key}: {value}")
+            request_obj[key] = value
+        
+        failed_request.append(request_obj)
+
+    return failed_request

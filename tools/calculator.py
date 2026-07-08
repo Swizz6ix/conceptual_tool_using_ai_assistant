@@ -1,9 +1,3 @@
-from guardrails.retries import retries
-from guardrails.cached import cached
-
-
-@cached(maxsize=128)
-@retries(max_attempts=5, max_delay=15.0)  # Retry up to 3 times with a 5-second delay between attempts
 def calculator(expression):
     """
     Evaluates a mathematical expression and returns the result.
@@ -17,7 +11,7 @@ def calculator(expression):
     # raise ConnectionError("Service API Unavailable")
     try:
     #     """
-    #     NOTE:
+        # NOTE:
     #     Using eval() only for demonstration.
     #     Never use eval() on untrusted user input.
 

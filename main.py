@@ -1,7 +1,7 @@
 from utilities.greet import greet
 from utilities.stop import stop
 from tools_helpers.tool_router import tool_router
-from llms.mock_llm import mock_llm_json_response
+from agent.llms.mock_llm import mock_llm_json_response
 
 
 MAX_ITERATIONS = 5  # Limit the number of iterations to prevent infinite loops
